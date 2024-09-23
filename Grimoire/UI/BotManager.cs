@@ -300,7 +300,6 @@ namespace Grimoire.UI
 				DisableAnimations = chkDisableAnims.Checked,
 				FollowCheck = chkFollowOnly.Checked,
 				FollowName = tbFollowPlayer2.Text,
-				AutoZone = cmbSpecials.SelectedItem != null ? cmbSpecials.SelectedItem.ToString() : string.Empty,
 			};
 		}
 
@@ -356,7 +355,7 @@ namespace Grimoire.UI
 				DisableAnimations = chkDisableAnims.Checked,
 				FollowCheck = chkFollowOnly.Checked,
 				FollowName = tbFollowPlayer2.Text,
-				AutoZone = cmbSpecials.SelectedItem != null ? cmbSpecials.SelectedItem.ToString() : string.Empty,
+
 			};
 		}
 
@@ -470,15 +469,6 @@ namespace Grimoire.UI
 					rtbInfo.Text = config.Description;
 				chkFollowOnly.Checked = config.FollowCheck;
 				tbFollowPlayer2.Text = config.FollowName == null ? "Player" : config.FollowName;
-				if (!string.IsNullOrEmpty(config.AutoZone))
-				{
-					int index = cmbSpecials.FindStringExact(config.AutoZone);
-					cmbSpecials.SelectedIndex = index;
-				}
-				else
-				{
-					cmbSpecials.SelectedIndex = -1;
-				}
 			}
 		}
 
@@ -1897,21 +1887,11 @@ namespace Grimoire.UI
 			chkReloginCompleteQuest.Enabled = !chkEnable.Checked;
 			numQuestDelay.Enabled = !chkEnable.Checked;
 			numBotDelay.Enabled = !chkEnable.Checked;
-			if (cmbSpecials.SelectedIndex != -1)
-			{
-				chkSpecial.Enabled = !chkEnable.Checked;
-			}
-
 			chkEnable.Enabled = false;
 			Root.Instance.chkStartBot.Enabled = false;
 
 			if (chkEnable.Checked)
 			{
-				if (cmbSpecials.SelectedIndex != -1 && !chkSpecial.Checked)
-				{
-					chkSpecial.Checked = true;
-				}
-
 				setPresetsSkills();
 
 				if (lstItems.Items.Count > 0 && chkInventOnStart.Checked)
@@ -1930,10 +1910,6 @@ namespace Grimoire.UI
 					chkHidePlayers.Checked = false;
 				}
 
-				if (SpecialJsonHandler != null)
-					Proxy.Instance.RegisterHandler(SpecialJsonHandler);
-				if (SpecialXtHandler != null)
-					Proxy.Instance.RegisterHandler(SpecialXtHandler);
 			}
 			else
 			{
@@ -1955,18 +1931,8 @@ namespace Grimoire.UI
 					await Task.Delay(2000);
 					await BankingItems();
 				}
-
-				if (SpecialJsonHandler != null)
-					Proxy.Instance.UnregisterHandler(SpecialJsonHandler);
-				if (SpecialXtHandler != null)
-					Proxy.Instance.UnregisterHandler(SpecialXtHandler);
-
-				if (cmbSpecials.SelectedIndex != -1 && chkSpecial.Enabled)
-				{
-					chkSpecial.Checked = false;
-					chkSpecial.Enabled = true;
-				}
-			}
+                CmdAddSpecialHandler.UnregisterHandlers();
+            }
 			toggleAntiMod(chkAntiMod.Checked && chkEnable.Checked);
 
 			chkEnable.Enabled = true;
@@ -3222,42 +3188,6 @@ namespace Grimoire.UI
 			World.ReloadMap();
 		}
 
-		private void chkSpecial_CheckedChanged(object sender, EventArgs e)
-		{
-			if (!Player.IsLoggedIn)
-			{
-				if (chkSpecial.Checked) chkSpecial.Checked = false;
-				return;
-			}
-			cmbSpecials.Enabled = !chkSpecial.Checked;
-			if (chkSpecial.Checked)
-			{
-				switch (cmbSpecials.SelectedItem.ToString())
-				{
-					case "Auto Zone - Ultradage":
-						SpecialJsonHandler = new HandlerAutoZoneUltraDage();
-						break;
-					case "Auto Zone - Dark Carnax":
-						SpecialJsonHandler = new HandlerAutoZoneDarkCarnax();
-						break;
-					case "Auto Zone - Astral Empyrean":
-						SpecialJsonHandler = new HandlerAutoZoneAstralEmpyrean();
-						break;
-					case "Auto Zone - Queen Iona":
-						SpecialJsonHandler = new HandlerAutoZoneQueenIona();
-						break;
-                    case "Auto Zone - The First Speaker":
-                        SpecialJsonHandler = new HandlerAutoZoneTheFirstSpeaker();
-                        break;
-                }
-			} 
-			else
-			{
-				SpecialJsonHandler = null;
-				SpecialXtHandler = null;
-			}
-		}
-
 		private async void chkGender_CheckedChanged(object sender, EventArgs e)
 		{
 			int userId = Flash.Call<int>("UserID", new string[0]);
@@ -3354,5 +3284,29 @@ namespace Grimoire.UI
 			await Task.Delay(1000);
 			btnLoadMap.Enabled = true;
 		}
-	}
+
+        private void btnSHAdd_Click(object sender, EventArgs e)
+        {
+            if (cmbSpecials.SelectedIndex != -1)
+            {
+				AddCommand(new CmdAddSpecialHandler
+				{
+					ActionW = CmdAddSpecialHandler.Action.ADD,
+					Label = cmbSpecials.SelectedItem.ToString()
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+            }
+        }
+
+        private void btnSHStop_Click(object sender, EventArgs e)
+        {
+			if (cmbSpecials.SelectedIndex != -1)
+			{
+				AddCommand(new CmdAddSpecialHandler
+				{
+					ActionW = CmdAddSpecialHandler.Action.STOP,
+					Label = cmbSpecials.SelectedItem.ToString()
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+        }
+    }
 }

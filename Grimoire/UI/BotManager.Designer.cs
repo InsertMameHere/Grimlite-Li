@@ -498,7 +498,7 @@ namespace Grimoire.UI
             this.btnLoadCmd = new DarkUI.Controls.DarkButton();
             this.tabMisc2 = new System.Windows.Forms.TabPage();
             this.darkGroupBox21 = new DarkUI.Controls.DarkGroupBox();
-            this.chkSpecial = new DarkUI.Controls.DarkCheckBox();
+            this.btnSHAdd = new DarkUI.Controls.DarkButton();
             this.cmbSpecials = new DarkUI.Controls.DarkComboBox();
             this.darkGroupBox13 = new DarkUI.Controls.DarkGroupBox();
             this.chkRestartAFK = new DarkUI.Controls.DarkCheckBox();
@@ -660,6 +660,7 @@ namespace Grimoire.UI
             this.toggleTabpagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commandColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.btnSHStop = new DarkUI.Controls.DarkButton();
             this.mainTabControl.SuspendLayout();
             this.tabCombat.SuspendLayout();
             this.darkGroupBox20.SuspendLayout();
@@ -1559,7 +1560,7 @@ namespace Grimoire.UI
             this.tabMap.Margin = new System.Windows.Forms.Padding(0);
             this.tabMap.Name = "tabMap";
             this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMap.Size = new System.Drawing.Size(192, 69);
+            this.tabMap.Size = new System.Drawing.Size(541, 297);
             this.tabMap.TabIndex = 2;
             this.tabMap.Text = "Map";
             // 
@@ -1857,7 +1858,7 @@ namespace Grimoire.UI
             this.tabItem.Margin = new System.Windows.Forms.Padding(0);
             this.tabItem.Name = "tabItem";
             this.tabItem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabItem.Size = new System.Drawing.Size(192, 69);
+            this.tabItem.Size = new System.Drawing.Size(541, 297);
             this.tabItem.TabIndex = 1;
             this.tabItem.Text = "Item";
             // 
@@ -2324,7 +2325,7 @@ namespace Grimoire.UI
             this.tabQuest.Margin = new System.Windows.Forms.Padding(0);
             this.tabQuest.Name = "tabQuest";
             this.tabQuest.Padding = new System.Windows.Forms.Padding(3);
-            this.tabQuest.Size = new System.Drawing.Size(192, 69);
+            this.tabQuest.Size = new System.Drawing.Size(541, 297);
             this.tabQuest.TabIndex = 3;
             this.tabQuest.Text = "Quest";
             // 
@@ -2782,7 +2783,7 @@ namespace Grimoire.UI
             this.tabMisc.Margin = new System.Windows.Forms.Padding(0);
             this.tabMisc.Name = "tabMisc";
             this.tabMisc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMisc.Size = new System.Drawing.Size(192, 69);
+            this.tabMisc.Size = new System.Drawing.Size(541, 297);
             this.tabMisc.TabIndex = 4;
             this.tabMisc.Text = "Misc";
             // 
@@ -3347,23 +3348,25 @@ namespace Grimoire.UI
             // 
             // darkGroupBox21
             // 
-            this.darkGroupBox21.Controls.Add(this.chkSpecial);
+            this.darkGroupBox21.Controls.Add(this.btnSHStop);
+            this.darkGroupBox21.Controls.Add(this.btnSHAdd);
             this.darkGroupBox21.Controls.Add(this.cmbSpecials);
             this.darkGroupBox21.Location = new System.Drawing.Point(6, 117);
             this.darkGroupBox21.Name = "darkGroupBox21";
-            this.darkGroupBox21.Size = new System.Drawing.Size(234, 46);
+            this.darkGroupBox21.Size = new System.Drawing.Size(234, 63);
             this.darkGroupBox21.TabIndex = 171;
             this.darkGroupBox21.TabStop = false;
             this.darkGroupBox21.Text = "Special handlers";
             // 
-            // chkSpecial
+            // btnSHAdd
             // 
-            this.chkSpecial.AutoSize = true;
-            this.chkSpecial.Location = new System.Drawing.Point(7, 21);
-            this.chkSpecial.Name = "chkSpecial";
-            this.chkSpecial.Size = new System.Drawing.Size(22, 21);
-            this.chkSpecial.TabIndex = 173;
-            this.chkSpecial.CheckedChanged += new System.EventHandler(this.chkSpecial_CheckedChanged);
+            this.btnSHAdd.Checked = false;
+            this.btnSHAdd.Location = new System.Drawing.Point(171, 13);
+            this.btnSHAdd.Name = "btnSHAdd";
+            this.btnSHAdd.Size = new System.Drawing.Size(57, 20);
+            this.btnSHAdd.TabIndex = 167;
+            this.btnSHAdd.Text = "Add";
+            this.btnSHAdd.Click += new System.EventHandler(this.btnSHAdd_Click);
             // 
             // cmbSpecials
             // 
@@ -3374,10 +3377,10 @@ namespace Grimoire.UI
             "Auto Zone - Astral Empyrean",
             "Auto Zone - Queen Iona",
             "Auto Zone - The First Speaker"});
-            this.cmbSpecials.Location = new System.Drawing.Point(29, 18);
+            this.cmbSpecials.Location = new System.Drawing.Point(6, 19);
             this.cmbSpecials.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbSpecials.Name = "cmbSpecials";
-            this.cmbSpecials.Size = new System.Drawing.Size(198, 27);
+            this.cmbSpecials.Size = new System.Drawing.Size(159, 27);
             this.cmbSpecials.TabIndex = 172;
             // 
             // darkGroupBox13
@@ -3701,7 +3704,7 @@ namespace Grimoire.UI
             this.tabOptions.Margin = new System.Windows.Forms.Padding(0);
             this.tabOptions.Name = "tabOptions";
             this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOptions.Size = new System.Drawing.Size(192, 69);
+            this.tabOptions.Size = new System.Drawing.Size(541, 297);
             this.tabOptions.TabIndex = 5;
             this.tabOptions.Text = "Options";
             // 
@@ -5373,6 +5376,16 @@ namespace Grimoire.UI
             this.commandColorsToolStripMenuItem.Text = "Command Customizer";
             this.commandColorsToolStripMenuItem.Click += new System.EventHandler(this.commandColorsToolStripMenuItem_Click);
             // 
+            // btnSHStop
+            // 
+            this.btnSHStop.Checked = false;
+            this.btnSHStop.Location = new System.Drawing.Point(171, 37);
+            this.btnSHStop.Name = "btnSHStop";
+            this.btnSHStop.Size = new System.Drawing.Size(57, 20);
+            this.btnSHStop.TabIndex = 173;
+            this.btnSHStop.Text = "Stop";
+            this.btnSHStop.Click += new System.EventHandler(this.btnSHStop_Click);
+            // 
             // BotManager
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -5459,7 +5472,6 @@ namespace Grimoire.UI
             this.tabMisc2.ResumeLayout(false);
             this.tabMisc2.PerformLayout();
             this.darkGroupBox21.ResumeLayout(false);
-            this.darkGroupBox21.PerformLayout();
             this.darkGroupBox13.ResumeLayout(false);
             this.darkGroupBox13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numBotDelay)).EndInit();
@@ -5536,7 +5548,6 @@ namespace Grimoire.UI
 		private DarkNumericUpDown numSkillCmd;
 		private DarkButton btnReloadMap;
 		private DarkComboBox cmbSpecials;
-		private DarkCheckBox chkSpecial;
 		private DarkGroupBox darkGroupBox19;
 		private DarkGroupBox darkGroupBox17;
 		private DarkGroupBox darkGroupBox20;
@@ -5594,5 +5605,7 @@ namespace Grimoire.UI
 		private DarkCheckBox cbJoinMapSwf;
 		private DarkTextBox tbJoinMapSwf;
 		private DarkButton btnMapItemExe;
-	}
+        private DarkButton btnSHAdd;
+        private DarkButton btnSHStop;
+    }
 }

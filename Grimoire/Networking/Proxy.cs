@@ -51,7 +51,7 @@ namespace Grimoire.Networking
 			this._handlersJson.Remove(handler);
 		}
 
-		public void UnregisterHandler(IXmlMessageHandler handler)
+        public void UnregisterHandler(IXmlMessageHandler handler)
 		{
 			this._handlersXml.Remove(handler);
 		}

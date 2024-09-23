@@ -297,12 +297,6 @@ namespace Grimoire.Botting
             set;
         }
 
-        public string AutoZone
-        {
-            get;
-            set;
-        }
-
         public static Dictionary<string, int> Tempvalues = new Dictionary<string, int>();
         public static Dictionary<string, string> Tempvariable = new Dictionary<string, string>();
 
