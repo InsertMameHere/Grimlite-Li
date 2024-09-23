@@ -64,6 +64,10 @@ namespace Grimoire.Networking.Handlers
                         {
                             for (int i = 0; i < 25; i++)
                             {
+                                if (Player.EquippedClass == "LORD OF ORDER")
+                                {
+                                    Player.UseSkill("4");
+                                }
                                 Player.UseSkill("5");
                                 await Task.Delay(100);
                             }
@@ -86,6 +90,14 @@ namespace Grimoire.Networking.Handlers
                         if (equalMappings.TryGetValue(Player.EquippedClass, out int[] equalArray) && equalArray.Contains(equalCount))
                         {
                             Player.WalkToPoint("489", "273");
+                        }
+                        if (Player.EquippedClass == "LEGION REVENANT")
+                        {
+                            for (int i = 0; i < 25; i++)
+                            {
+                                Player.UseSkill("1");
+                                await Task.Delay(100);
+                            }
                         }
                         break;
                     default:
